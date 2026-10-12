@@ -11,3 +11,9 @@ wheels/
 
 # Secrets
 .env
+
+# Rulebooks are copyrighted (sources in data/rulebooks/sources.yaml):
+# the PDFs, their Markdown conversions and the embedded index stay local.
+data/rulebooks/*.pdf
+data/processed/*.md
+data/index/

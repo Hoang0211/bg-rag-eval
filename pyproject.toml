@@ -7,7 +7,12 @@ authors = [
     { name = "Hoang0211", email = "n3verland0211@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "dotenv>=0.9.9",
+    "langchain>=1.4.4",
+    "langchain-openai>=1.7.0",
+    "pyyaml>=6.0.3",
+]
 
 [project.scripts]
 bg-rag-eval = "bg_rag_eval:main"

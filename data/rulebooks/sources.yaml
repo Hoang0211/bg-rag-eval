@@ -1,0 +1,31 @@
+# The three rulebooks in the eval corpus. The PDFs are copyrighted and not committed:
+# download them from `url` into data/rulebooks/ and check them against `sha256`.
+# `markdown` is the hand-made conversion that indexing.py chunks (rules in data/README.md).
+# `game` is the id prefix of every chunk from that file.
+
+- game: sea-salt-and-paper
+  title: Sea Salt & Paper
+  lang: en
+  pdf: SSAP_rulebook_EN-3.pdf
+  url: https://studiobombyx.com/assets/SSAP_rulebook_EN-3.pdf
+  sha256: f2feb5a37efd5a7d2b4126fd301a418337a7ec7b037bd217755789fdc9f2315f
+  retrieved: 2026-10-12
+  markdown: data/processed/sea-salt-and-paper_en.md
+
+- game: sea-salt-and-paper-extra-pepper
+  title: "Sea Salt & Paper: Extra Pepper"
+  lang: en
+  pdf: EXTRAPEPPER_rules_EN.pdf
+  url: https://studiobombyx.com/assets/EXTRAPEPPER_rules_EN.pdf
+  sha256: c817b9cdf3761d79f4b8b4dab910a96dbe193590e57298b2cf33f61b0b3233f3
+  retrieved: 2026-10-12
+  markdown: data/processed/sea-salt-and-paper_extra-pepper_en.md
+
+- game: sea-salt-and-paper-extra-salt
+  title: "Sea Salt & Paper: Extra Salt"
+  lang: en
+  pdf: EXTRA_SALT_rules_EN.pdf
+  url: https://studiobombyx.com/assets/EXTRA_SALT_rules_EN.pdf
+  sha256: 54545da444edcf25bc0cd0cb7b072fcd3ee2075bfff5bde8c33909d8486cdeeb
+  retrieved: 2026-10-12
+  markdown: data/processed/sea-salt-and-paper_extra-salt_en.md
