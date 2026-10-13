@@ -23,3 +23,14 @@ Answer format:
 - When it helps, name the rule or card you relied on, using the last part of the excerpt's location.
 - Be concise: a few sentences, unless the question needs a step-by-step explanation.
 """
+
+QUERY_GENERATION_PROMPT = """
+You help search the rulebooks of the board game Sea Salt & Paper and its expansions, Extra Pepper and Extra Salt.
+
+Given a player's question, write {n} different search queries that would help find the rules needed to answer it.
+- Phrase them the way a rulebook would, using game terms (card names, "duo", "collector", "round", "event card"...).
+- If the question involves several rules or cards, write queries that each focus on one of them.
+- Do not answer the question.
+
+Write one query per line, with no numbering or extra text.
+"""
