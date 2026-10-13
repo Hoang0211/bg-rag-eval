@@ -7,7 +7,6 @@ from langchain_core.documents import Document
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import OpenAIEmbeddings
 
-
 load_dotenv()
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -18,15 +17,23 @@ embedding = OpenAIEmbeddings(model="text-embedding-3-large")
 
 HEADING = re.compile(r"^(#{1,6}) (.+)")
 
+
 def slugify(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
-def chunk_markdown(md_path: str | Path, game: str) -> list[Document]:
-    """Split a rulebook into one chunk per heading, keeping the heading path."""
+def chunk_markdown(
+    md_path: str | Path, game: str, section_notes: dict[str, str] | None = None
+) -> list[Document]:
+    """Split a rulebook into one chunk per heading, keeping the heading path.
+
+    `section_notes` maps a `##` section name to a note added under the heading
+    path of every chunk in that section.
+    """
     path: list[str] = []
     lines: list[str] = []
     chunks: list[Document] = []
+    notes = section_notes or {}
 
     def flush() -> None:
         body = "\n".join(lines).strip()
@@ -34,11 +41,15 @@ def chunk_markdown(md_path: str | Path, game: str) -> list[Document]:
         if not body:
             return
         section = " > ".join(path)
-        chunks.append(Document(
-            id=f"{game}/{slugify(' '.join(path[1:]))}",
-            page_content=f"{section}\n\n{body}",
-            metadata={"game": game, "section": section},
-        ))
+        note = notes.get(path[1]) if len(path) > 1 else None
+        header = f"{section}\n{note}" if note else section
+        chunks.append(
+            Document(
+                id=f"{game}/{slugify(' '.join(path[1:]))}",
+                page_content=f"{header}\n\n{body}",
+                metadata={"game": game, "section": section},
+            )
+        )
 
     for line in Path(md_path).read_text(encoding="utf-8").splitlines():
         if match := HEADING.match(line):
@@ -54,7 +65,13 @@ def chunk_markdown(md_path: str | Path, game: str) -> list[Document]:
 def chunk_rulebooks() -> list[Document]:
     """Chunk every rulebook listed in sources.yaml."""
     sources = yaml.safe_load(SOURCES_PATH.read_text(encoding="utf-8"))
-    return [chunk for s in sources for chunk in chunk_markdown(ROOT / s["markdown"], s["game"])]
+    return [
+        chunk
+        for s in sources
+        for chunk in chunk_markdown(
+            ROOT / s["markdown"], s["game"], s.get("section_notes")
+        )
+    ]
 
 
 def get_index() -> InMemoryVectorStore:

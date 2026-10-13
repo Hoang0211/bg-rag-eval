@@ -48,6 +48,12 @@ The PDFs are not indexed directly. Their layouts (multi-panel leaflets, card box
 15. Decoration and marketing: cover art, logos, "learn to play" banners, QR codes, app-store badges, page numbers.
 16. Credits are kept as a final `## Credits` section (someone may ask who designed the game).
 
+### Context added at indexing
+
+The Markdown stays a faithful transcription: nothing is added to it beyond rules 11–13. Some chunks, though, only make sense with context the rulebook gives in another section. Every Extra Pepper rule is an event card, but only the expansion's `## Rules` section says so and explains when an event applies; the event chunks themselves (`Change a Rule > The Diodon Fish`) never mention it. Retrieved on its own, such a chunk reads like a permanent rule of the expansion.
+
+That context is added when building chunks, not in the Markdown: `section_notes` in `sources.yaml` maps a `##` section to a note that `indexing.py` places under the heading path of each chunk in that section. Notes must restate what the rulebook says elsewhere, never add new rules.
+
 ### After editing
 
 17. List the chunks without calling the embedding API and read through them:
@@ -57,4 +63,4 @@ The PDFs are not indexed directly. Their layouts (multi-panel leaflets, card box
         print(c.id)
     ```
     Check that every chunk is one self-contained rule, card or example, and that all IDs are unique.
-18. **Changing a heading changes its chunk ID**, so anything that refers to chunks by ID must be updated too. Delete `data/index/sea-salt-and-paper.json` after any change; the next run of `indexing.py` rebuilds it.
+18. **Changing a heading changes its chunk ID**, so anything that refers to chunks by ID must be updated too. Delete `data/index/sea-salt-and-paper.json` after any change to the Markdown or to `section_notes`; the next run of `indexing.py` rebuilds it.

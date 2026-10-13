@@ -2,6 +2,8 @@
 # download them from `url` into data/rulebooks/ and check them against `sha256`.
 # `markdown` is the hand-made conversion that indexing.py chunks (rules in data/README.md).
 # `game` is the id prefix of every chunk from that file.
+# `section_notes` (optional) maps a `##` section to a note added to each of its chunks
+# at indexing time, for context the rulebook only gives elsewhere (see data/README.md).
 
 - game: sea-salt-and-paper
   title: Sea Salt & Paper
@@ -20,6 +22,13 @@
   sha256: c817b9cdf3761d79f4b8b4dab910a96dbe193590e57298b2cf33f61b0b3233f3
   retrieved: 2026-10-12
   markdown: data/processed/sea-salt-and-paper_extra-pepper_en.md
+  section_notes:
+    Change the Effects of Duo: &event_card >-
+      [Extra Pepper event card: its rule applies to everyone only during the round in which it is
+      revealed, and afterwards only to the player who has the card in front of them.]
+    Change the Point Value: *event_card
+    Change a Rule: *event_card
+    Add a New Rule: *event_card
 
 - game: sea-salt-and-paper-extra-salt
   title: "Sea Salt & Paper: Extra Salt"
