@@ -13,6 +13,5 @@ def answer(question: str) -> RAGResult:
 
 
 if __name__ == "__main__":
-    result = answer("How many white cards are in the base game?")
-    print(result["chunk_ids"])
-    print(result["answer"])
+    from bg_rag_eval.run import run
+    run("baseline", answer)

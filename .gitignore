@@ -17,3 +17,9 @@ wheels/
 data/rulebooks/*.pdf
 data/processed/*.md
 data/index/
+
+# Eval outputs: generated answers include the retrieved rulebook text
+results/
+
+# DeepEval cache
+.deepeval/
