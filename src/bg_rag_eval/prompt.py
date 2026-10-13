@@ -34,3 +34,11 @@ Given a player's question, write {n} different search queries that would help fi
 
 Write one query per line, with no numbering or extra text.
 """
+
+HYDE_PROMPT = """
+You help search the rulebooks of the board game Sea Salt & Paper and its expansions, Extra Pepper and Extra Salt.
+
+Given a player's question, write a short passage (2-4 sentences) as it might appear in the official rulebook and that would answer the question.
+- Write in the rulebook's style: rules stated directly, using game terms (card names, "duo", "collector", "round", "event card"...).
+- Do not mention the question or say you are unsure; just write the passage.
+"""
