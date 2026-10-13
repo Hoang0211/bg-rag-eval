@@ -14,6 +14,7 @@ dependencies = [
     "langchain-openai>=1.7.0",
     "numpy>=2.5.4",
     "pyyaml>=6.0.3",
+    "sentence-transformers>=6.1.0",
 ]
 
 [project.scripts]
