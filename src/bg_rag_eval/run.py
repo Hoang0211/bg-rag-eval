@@ -35,3 +35,14 @@ def run(method_name: str, answer_fn: Callable[[str], RAGResult]) -> None:
             out.write(json.dumps(result) + "\n")
 
     print(f"\nDone! {len(test_cases)} results saved to {output_path}")
+
+
+if __name__ == "__main__":
+    import importlib
+    import sys
+
+    method = sys.argv[1]  # e.g. "baseline"
+    tag = sys.argv[2] if len(sys.argv) > 2 else None  # e.g. "run2" or "gpt4o"
+    module = importlib.import_module(f"bg_rag_eval.methods.{method}")
+    name = f"{method}_{tag}" if tag else method
+    run(name, module.answer)

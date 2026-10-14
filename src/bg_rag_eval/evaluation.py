@@ -8,6 +8,7 @@ from deepeval.test_case import LLMTestCase, SingleTurnParams
 from bg_rag_eval.run import QUESTIONS_PATH, RESULTS_DIR
 from bg_rag_eval.schemas import EvalQuestion, EvalRecord, ScoredRecord
 
+EVALUATED_DIR = RESULTS_DIR / "evaluated"
 JUDGE_MODEL = "gpt-4o"
 
 
@@ -162,7 +163,8 @@ def evaluation(method_name: str, questions: list[int] | None = None) -> None:
         evaluated_results.append(evaluated_result)
 
     suffix = "_subset" if questions else ""
-    output_path = RESULTS_DIR / f"evaluated_{method_name}{suffix}.jsonl"
+    EVALUATED_DIR.mkdir(parents=True, exist_ok=True)
+    output_path = EVALUATED_DIR / f"{method_name}{suffix}.jsonl"
 
     with open(output_path, "w", encoding="utf-8") as file:
         for result in evaluated_results:

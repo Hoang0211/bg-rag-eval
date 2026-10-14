@@ -6,8 +6,9 @@ from bg_rag_eval.prompt import SYSTEM_PROMPT
 from bg_rag_eval.schemas import RAGResult
 
 TOP_K = 5
+CHAT_MODEL = "gpt-4o-mini"  # gpt-4o was used for the comparison runs (see REPORT.md)
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm = ChatOpenAI(model=CHAT_MODEL, temperature=0)
 store = get_index()
 
 
