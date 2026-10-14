@@ -114,23 +114,9 @@ Several choices were made after inspecting baseline results; they apply equally 
 
 ## Reproducing
 
-**1. Install and configure**
+Setup and run commands are in the [README](README.md#running-it). To reproduce the runs reported here:
 
-```bash
-uv sync                      # install dependencies
-cp .env.example .env         # then set OPENAI_API_KEY in .env
-```
+- **gpt-4o-mini:** run each method three times with the default `CHAT_MODEL`, using no tag, `run2` and `run3`.
+- **gpt-4o:** set `CHAT_MODEL = "gpt-4o"` in `src/bg_rag_eval/methods/common.py` and run each method once with the tag `gpt4o`.
 
-**2. Prepare the corpus.** The rulebooks are copyrighted, so neither the PDFs nor their Markdown conversions are in the repository. Download the PDFs and check their SHA-256 as described in [`data/README.md`](data/README.md), then transcribe each one to the `markdown` path listed in [`data/rulebooks/sources.yaml`](data/rulebooks/sources.yaml), following the conversion rules in `data/README.md`. The chunk IDs, and therefore the gold chunks in `data/eval_questions.jsonl`, depend on those headings.
-
-**3. Run**
-
-```bash
-python -m bg_rag_eval.indexing                           # build the index (also built automatically on first use)
-python -m bg_rag_eval.run <method> [tag]                 # generate answers -> results/<method>[_tag].jsonl
-python -m bg_rag_eval.evaluation <method>[_tag]          # score them -> results/evaluated/<method>[_tag].jsonl
-```
-
-`<method>` is `baseline`, `rag_fusion`, `hyde` or `reranking`; the optional `tag` names a separate run (e.g. `run2`, `gpt4o`) so earlier results are not overwritten. The generator model is set by `CHAT_MODEL` in `src/bg_rag_eval/methods/common.py` (`gpt-4o-mini` by default; change it to `gpt-4o` for the comparison runs).
-
-Reranking downloads `BAAI/bge-reranker-base` (about 1 GB) from Hugging Face on first use. Afterwards, set `HF_HUB_OFFLINE=1` to load it from the local cache and avoid Hugging Face rate limits.
+The Markdown transcriptions of the rulebooks are not distributed; recreate them from the PDFs following [`data/README.md`](data/README.md), since the chunk IDs and gold chunks depend on their headings.
